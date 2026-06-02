@@ -1,0 +1,76 @@
+﻿@model IEnumerable<myprojectbahaa.Models.Player>
+
+@{
+    ViewData["Title"] = "FIFA Friends Tracker";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>FIFA Friends Tracker 🎮</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body { background-color: #1a1a2e; color: white; }
+        .card { background-color: #16213e; border: none; }
+        .table { color: white; }
+        .gold { color: #FFD700; }
+        .silver { color: #C0C0C0; }
+        .bronze { color: #CD7F32; }
+        h1 { color: #00d4ff; font-weight: bold; }
+        .badge-wins { background-color: #28a745; }
+        .badge-losses { background-color: #dc3545; }
+        .badge-draws { background-color: #ffc107; color: black; }
+    </style>
+</head>
+<body>
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1>⚽ FIFA Friends Tracker 🎮</h1>
+        <p class="text-secondary">Who is the best among your friends?</p>
+        <a href="/Match/Create" class="btn btn-success me-2">➕ Add Match</a>
+        <a href="/Player/Create" class="btn btn-primary me-2">👤 Add Player</a>
+        <a href="/Match/Index" class="btn btn-secondary">📋 All Matches</a>
+    </div>
+
+    <div class="card p-4 shadow">
+        <h3 class="text-center mb-4 gold">🏆 Leaderboard</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Wins</th>
+                    <th>Losses</th>
+                    <th>Draws</th>
+                    <th>Goals</th>
+                    <th>Conceded</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int rank = 1; }
+                @foreach (var player in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (rank == 1) { <span class="gold">🥇</span> }
+                            else if (rank == 2) { <span class="silver">🥈</span> }
+                            else if (rank == 3) { <span class="bronze">🥉</span> }
+                            else { <span>@rank</span> }
+                        </td>
+<td><strong>@player.Name</strong> <span class="text-secondary">@@@player.Username</span></td>                        <td><span class="badge badge-wins px-2">@player.Wins</span></td>
+                        <td><span class="badge badge-losses px-2">@player.Losses</span></td>
+                        <td><span class="badge badge-draws px-2">@player.Draws</span></td>
+                        <td>@player.GoalsScored</td>
+                        <td>@player.GoalsConceded</td>
+                    </tr>
+                    rank++;
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
